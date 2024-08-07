@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jedi Academy Form</title>
+  <style>
+    /* Your CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000000;
+      color: #FFFFFF;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #333333;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      align-self: center;
+    }
+
+    label {
+      margin-bottom: 10px;
+      color: #FFD700;
+    }
+
+    button {
+      background-color: #FF0000;
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #FFD700;
+    }
+  </style>
+</head>
+<body>
+  <form id="starWarsForm">
+    <label for="jediName">Your Name:</label>
+    <input type="text" id="jediName" name="jediName" required><br>
+
+    <label for="isJedi">Are you a Jedi?</label>
+    <input type="checkbox" id="isJedi" name="isJedi"><br>
+
+    <label for="hasLightsaber">Do you have a lightsaber?</label>
+    <input type="checkbox" id="hasLightsaber" name="hasLightsaber"><br>
+
+    <label for="forceLevel">Force Level (1-10):</label>
+    <input type="number" id="forceLevel" name="forceLevel" min="1" max="10"><br>
+
+    <button type="submit">Check Your Destiny</button>
+  </form>
+  <div id="result"></div>
+  <script>
+    const form = document.getElementById('starWarsForm');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const jediName = document.getElementById('jediName').value;
+      const isJedi = document.getElementById('isJedi').checked;
+      const hasLightsaber = document.getElementById('hasLightsaber').checked;
+      const forceLevel = parseInt(document.getElementById('forceLevel').value);
+
+      if (jediName.trim() === '') {
+        resultDiv.textContent = 'Please enter a Jedi name.';
+        return;
+      }
+
+      if (isNaN(forceLevel) || forceLevel < 1 || forceLevel > 10) {
+        resultDiv.textContent = 'Invalid force level. Please enter a number between 1 and 10.';
+        return;
+      }
+
+      let message = '';
+      if (isJedi) {
+        message += `You are Jedi ${jediName}! `;
+      } else {
+        message += `You are not a Jedi, ${jediName}. `;
+      }
+      if (hasLightsaber) {
+        message += 'May the Force be with your lightsaber. ';
+      } else {
+        message += 'Find your lightsaber, young padawan. ';
+      }
+      message += 'Your force level is ' + forceLevel + '.';
+
+      resultDiv.textContent = message;
+    });
+  </script>
+</body>
+</html>
