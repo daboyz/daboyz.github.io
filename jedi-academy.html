@@ -8,27 +8,44 @@
       font-family: Arial, sans-serif;
       background-color: #000000;
       color: #FFFFFF;
-      text-align: center;
+      display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 90vh;
+      max-height: 90vh;
     }
 
     form {
       display: flex;
+      position: absolute;
+      top: 10%; /* Position below the form */
+      left: 50%;
+      transform: translateX(-50%); /* Center horizontally */
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       background-color: #333333;
       padding: 40px;
       border-radius: 10px;
       box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
-      width: 100%;
-      align-self: center;
+      width: 400px;
     }
 
     label {
-      margin-bottom: 10px;
+      margin-top: 10px;
+      margin-bottom: 5px;
       color: #FFD700;
+    }
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .form-label {
+      flex: 0 0 120px; /* Adjust width as needed */
+      text-align: right;
+      margin-right: 10px;
     }
 
     button {
@@ -38,32 +55,82 @@
       padding: 10px 20px;
       cursor: pointer;
       border-radius: 5px;
+      align-self: center;
+      margin-top: 10px;
+    }
+    .radio-group {
+      display: grid;
+      grid-template-columns: 20px auto;
+      align-items: center;
+      gap: 10px; /* Add spacing between radio groups */
+    }
+
+    .radio-label {
+      text-align: left; /* Align labels to the left */
     }
 
     #result {
-      margin-top: 20px;
+      position: absolute;
+      top: 70%; /* Position below the form */
+      left: 50%;
+      transform: translateX(-50%); /* Center horizontally */
+      margin-top: 10px;
       font-size: 18px;
       color: #FFD700;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <form id="starWarsForm">
-    <label for="jediName">Your Name:</label>
-    <input type="text" id="jediName" name="jediName" required><br>
+       <div class="form-row">
+        <label class="form-label" for="jediName">Your Name:</label>
+        <input type="text" id="jediName" name="jediName" required>
+      </div>
 
-    <label for="isJedi">Are you a Jedi?</label>
-    <input type="checkbox" id="isJedi" name="isJedi"><br>
+      <div class="form-row">
+            <label class="form-label" for="side">Side:</label>
+            <select id="side" name="side">
+              <option value="" disabled selected>Choose your side</option>
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+            </select>
+      </div>
 
-    <label for="hasLightsaber">Do you have a lightsaber?</label>
-    <input type="checkbox" id="hasLightsaber" name="hasLightsaber"><br>
+      <div class="form-row">
+            <label class="form-label" for="birthDate">Birth Date:</label>
+            <input type="date" id="birthDate" name="birthDate" required>
+      </div>
 
-    <label for="forceLevel">Force Level (1-10):</label>
-    <input type="number" id="forceLevel" name="forceLevel" min="1" max="10"><br>
+      <label>Did you destroy the Death Star?</label>
+      <div class="radio-group">
+        <input type="radio" id="deathStarNo" name="deathStar" value="no" checked>
+        <label class="radio-label" for="deathStarNo">It wasn't me</label>
+      </div>
+    
+      <div class="radio-group">
+        <input type="radio" id="deathStarYes" name="deathStar" value="yes">
+        <label class="radio-label" for="deathStarYes">It was me</label>
+      </div>
+    
+      <div class="radio-group">
+        <input type="radio" id="deathStarUnsure" name="deathStar" value="unsure">
+        <label class="radio-label" for="deathStarUnsure">I am not sure</label>
+      </div>
 
-    <button type="submit">Check Your Destiny</button>
-  </form>
-  <div id="result"></div>
+      <label for="isJedi"><input type="checkbox" id="isJedi" name="isJedi"> Are you a Jedi?</label>
+    
+      <label for="hasLightsaber"><input type="checkbox" id="hasLightsaber" name="hasLightsaber"> Do you have a lightsaber?</label>
+
+      <div class="form-row">
+        <label class="form-label" for="forceLevel">Force Level:</label>
+        <input type="number" id="forceLevel" name="forceLevel" min="1" max="10">
+      </div>
+
+      <button type="submit">Check Your Destiny</button>
+    </form>
+  
+    <div id="result"></div>
   <script>
     const form = document.getElementById('starWarsForm');
     const resultDiv = document.getElementById('result');
@@ -75,20 +142,32 @@
       const isJedi = document.getElementById('isJedi').checked;
       const hasLightsaber = document.getElementById('hasLightsaber').checked;
       const forceLevel = parseInt(document.getElementById('forceLevel').value);
+      const birthDate = new Date(document.getElementById('birthDate').value);
+      const side = document.getElementById('side').value;
+      const deathStar = document.querySelector('input[name="deathStar"]:checked').value;
 
       if (jediName.trim() === '') {
         resultDiv.textContent = 'Please enter a Jedi name.';
         return;
       }
-
+      if (side === '') {
+        resultDiv.textContent = 'Choose your side, padawan.';
+        return;
+      }
+      const today = new Date();
+      const age = today.getFullYear() - birthDate.getFullYear();
+      if (age < 0 || (age === 0 && today < new Date(birthDate.setFullYear(today.getFullYear())))) {
+        resultDiv.textContent = 'Invalid birth date.';
+        return;
+      }
       if (isNaN(forceLevel) || forceLevel < 1 || forceLevel > 10) {
         resultDiv.textContent = 'Invalid force level. Please enter a number between 1 and 10.';
         return;
       }
-
+      
       let message = '';
       if (isJedi) {
-        message += `You are Jedi ${jediName}! `;
+        message += `You are Jedi ${jediName} of the ${side} side! `;
       } else {
         message += `You are not a Jedi, ${jediName}. `;
       }
@@ -97,7 +176,14 @@
       } else {
         message += 'Find your lightsaber, young padawan. ';
       }
-      message += 'Your force level is ' + forceLevel + '.';
+      message += 'Your force level is ' + forceLevel + '. ';
+      message += `You are ${age} years old.`;
+
+      if (deathStar === 'yes') {
+        message += ' Wait, do you know Luke Skywalker? ';
+      } else if (deathStar === 'unsure') {
+        message += 'Is it you, Han Solo? ';
+      }
 
       resultDiv.textContent = message;
     });
