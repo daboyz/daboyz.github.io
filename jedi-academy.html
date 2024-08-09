@@ -116,7 +116,7 @@
         <label class="radio-label" for="deathStarUnsure">I am not sure</label>
       </div>
 
-      <label for="isJedi"><input type="checkbox" id="isJedi" name="isJedi"> Are you a Jedi?</label>
+      <label for="isJawa"><input type="checkbox" id="isJawa" name="isJawa"> Are you a Jawa?</label>
       <label for="hasLightsaber"><input type="checkbox" id="hasLightsaber" name="hasLightsaber"> Do you have a lightsaber?</label>
 
 
@@ -125,18 +125,18 @@
         <input type="number" id="forceLevel" name="forceLevel" min="1" max="10">
       </div>
 
-      <button type="submit">Behold Your Destiny</button>
+      <button type="submit">Chek diz out yall</button>
     </form>
-    <div id="result"></div>
+    <div id="message"></div>
   <script>
     const form = document.getElementById('starWarsForm');
-    const resultDiv = document.getElementById('result');
+    const resultDiv = document.getElementById('message');
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
 
       const jediName = document.getElementById('jediName').value;
-      const isJedi = document.getElementById('isJedi').checked;
+      const isJawa = document.getElementById('isJawa').checked;
       const hasLightsaber = document.getElementById('hasLightsaber').checked;
       const forceLevel = parseInt(document.getElementById('forceLevel').value);
       const birthDate = new Date(document.getElementById('birthDate').value);
@@ -166,10 +166,10 @@
       }
 
       let message = '';
-      if (isJedi) {
-        message += `You are Jedi ${jediName} of the ${side} side! `;
+      if (isJawa) {
+        message += `You are Jawa scum ${jediName} of the ${side} side! `;
       } else {
-        message += `You are not a Jedi, ${jediName}. `;
+        message += `Great, you are not a Jawa, ${jediName}. `;
       }
       if (hasLightsaber) {
         message += 'May the Force be with your lightsaber. ';
