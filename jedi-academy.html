@@ -84,13 +84,13 @@
 <body>
   <form id="starWarsForm">
        <div class="form-row">
-        <label class="form-label" for="jediName">Your Name:</label>
-        <input type="text" id="jediName" name="jediName" required>
+        <label class="form-label" for="yourName">Your Name:</label>
+        <input type="text" id="yourName" name="yourName" required>
       </div>
 
       <div class="form-row">
             <label class="form-label" for="side">Side:</label>
-            <select id="side" name="side">
+            <select id="yourSide" name="yourSide">
               <option value="" disabled selected>Choose your side</option>
               <option value="dark">Dark</option>
               <option value="light">Light</option>
@@ -125,22 +125,22 @@
         <input type="number" id="forceLevel" name="forceLevel" min="1" max="10">
       </div>
 
-      <button type="submit">Behold Your Destiny</button>
+      <button type="check">Behold Your Destiny</button>
     </form>
     <div id="result"></div>
   <script>
     const form = document.getElementById('starWarsForm');
     const resultDiv = document.getElementById('result');
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('check', (event) => {
       event.preventDefault();
 
-      const jediName = document.getElementById('jediName').value;
+      const jediName = document.getElementById('yourName').value;
       const isJedi = document.getElementById('isJedi').checked;
       const hasLightsaber = document.getElementById('hasLightsaber').checked;
       const forceLevel = parseInt(document.getElementById('forceLevel').value);
       const birthDate = new Date(document.getElementById('birthDate').value);
-      const side = document.getElementById('side').value;
+      const side = document.getElementById('yourSide').value;
       const deathStar = document.querySelector('input[name="deathStar"]:checked').value;
 
       if (jediName.trim() === '') {
