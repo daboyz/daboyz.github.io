@@ -121,8 +121,8 @@
 
 
       <div class="form-row">
-        <label class="form-label" for="forceLevel">Force Level:</label>
-        <input type="number" id="forceLevel" name="forceLevel" min="1" max="10">
+        <label class="form-label" for="forceLevelSense">Force Level:</label>
+        <input type="number" id="forceLevelSense" name="forceLevelSense" min="1" max="10">
       </div>
 
       <button type="submit">Behold Your Destiny</button>
@@ -138,7 +138,7 @@
       const jediName = document.getElementById('jediYourName').value;
       const isJedi = document.getElementById('isJedi').checked;
       const hasLightsaber = document.getElementById('hasLightsaber').checked;
-      const forceLevel = parseInt(document.getElementById('forceLevel').value);
+      const forceLevel = parseInt(document.getElementById('forceLevelSense').value);
       const birthDate = new Date(document.getElementById('birthDate').value);
       const side = document.getElementById('side').value;
       const deathStar = document.querySelector('input[name="deathStar"]:checked').value;
