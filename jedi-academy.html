@@ -89,6 +89,11 @@
       </div>
 
       <div class="form-row">
+            <label class="form-label" for="birthDate">Birth Date:</label>
+            <input type="date" id="birthDate" name="birthDate" required>
+      </div>
+
+      <div class="form-row">
             <label class="form-label" for="side">Side:</label>
             <select id="side" name="side">
               <option value="" disabled selected>Choose your side</option>
@@ -97,16 +102,10 @@
             </select>
       </div>
 
-      <div class="form-row">
-            <label class="form-label" for="birthDate">Birth Date:</label>
-            <input type="date" id="birthDate" name="birthDate" required>
-      </div>
+      <button type="submit">Behold Your Destiny</button>
 
       <label>Did you destroy the Death Star?</label>
-      <div class="radio-group">
-        <input type="radio" id="deathStarNo" name="deathStar" value="no" checked>
-        <label class="radio-label" for="deathStarNo">It wasn't me</label>
-      </div>
+      
       <div class="radio-group">
         <input type="radio" id="deathStarPos" name="deathStar" value="yes">
         <label class="radio-label" for="deathStarYes">It was me</label>
@@ -115,17 +114,21 @@
         <input type="radio" id="deathStarUnsure" name="deathStar" value="unsure">
         <label class="radio-label" for="deathStarUnsure">I am not sure</label>
       </div>
+      <div class="radio-group">
+        <input type="radio" id="deathStarNo" name="deathStar" value="no" checked>
+        <label class="radio-label" for="deathStarNo">It wasn't me</label>
+      </div>
 
       <label for="isJedi"><input type="checkbox" id="isJedi" name="isJedi"> Are you a Jedi?</label>
       <label for="hasLightsaber"><input type="checkbox" id="hasLightsaber" name="hasLightsaber"> Do you have a lightsaber?</label>
 
 
       <div class="form-row">
-        <label class="form-label" for="forceLevelSense">Force Level:</label>
-        <input type="number" id="forceLevelSense" name="forceLevelSense" min="1" max="10">
+        <label class="form-label" for="forceLevel">Force Level:</label>
+        <input type="number" id="forceLevel" name="forceLevel" min="1" max="10">
       </div>
 
-      <button type="submit">Behold Your Destiny</button>
+      
     </form>
     <div id="destiny"></div>
   <script>
@@ -138,7 +141,7 @@
       const jediName = document.getElementById('jediYourName').value;
       const isJedi = document.getElementById('isJedi').checked;
       const hasLightsaber = document.getElementById('hasLightsaber').checked;
-      const forceLevel = parseInt(document.getElementById('forceLevelSense').value);
+      const forceLevel = parseInt(document.getElementById('forceLevel').value);
       const birthDate = new Date(document.getElementById('birthDate').value);
       const side = document.getElementById('side').value;
       const deathStar = document.querySelector('input[name="deathStar"]:checked').value;
